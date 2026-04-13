@@ -1,30 +1,38 @@
 #pragma once
 
 #include <QObject>
+#include "config/ServerConfig.h"
 
 class GheClient;
 class GheParser;
 class AntennaModel;
 
-// TODO: Orchestrate the relationship between GheClient, GheParser, and
-// AntennaModel. Owns all three objects. Translates user actions (select port)
-// into outgoing GHE commands and incoming parsed responses into model updates.
+// Owns one GHE Everywhere connection (GheClient + GheParser + AntennaModel).
+// One SwitchController instance per configured server.
 class SwitchController : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit SwitchController(QObject *parent = nullptr);
+    explicit SwitchController(const ServerConfig &cfg, QObject *parent = nullptr);
     ~SwitchController() override;
 
-    AntennaModel *model() const { return m_model; }
+    const ServerConfig &serverConfig() const { return m_config; }
+    AntennaModel       *model()        const { return m_model; }
+    bool                isConnected()  const;
 
 public slots:
-    void connectToHost(const QString &host, quint16 port);
-    void disconnectFromHost();
+    void connectToServer();
+    void disconnectFromServer();
     void selectPort(int portIndex);
 
+signals:
+    void connected();
+    void disconnected();
+    void connectionError(const QString &message);
+
 private:
+    ServerConfig  m_config;
     GheClient    *m_client{nullptr};
     GheParser    *m_parser{nullptr};
     AntennaModel *m_model{nullptr};

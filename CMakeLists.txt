@@ -22,6 +22,9 @@ set(GHECONTROL_SOURCES
     src/main.cpp
     src/MainWindow.cpp
     src/MainWindow.h
+    src/config/AppConfig.cpp
+    src/config/AppConfig.h
+    src/config/ServerConfig.h
     src/core/GheClient.cpp
     src/core/GheClient.h
     src/core/GheParser.cpp
@@ -32,6 +35,8 @@ set(GHECONTROL_SOURCES
     src/core/SwitchController.h
     src/ui/AntennaButton.cpp
     src/ui/AntennaButton.h
+    src/ui/SetupDialog.cpp
+    src/ui/SetupDialog.h
 )
 
 # ── Executable ────────────────────────────────────────────────────────────────
@@ -44,6 +49,7 @@ endif()
 # ── Include paths ─────────────────────────────────────────────────────────────
 target_include_directories(GHEControl PRIVATE
     src
+    src/config
     src/core
     src/ui
 )

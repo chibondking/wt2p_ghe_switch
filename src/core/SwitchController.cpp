@@ -4,32 +4,47 @@
 #include "GheParser.h"
 #include "AntennaModel.h"
 
-SwitchController::SwitchController(QObject *parent)
+SwitchController::SwitchController(const ServerConfig &cfg, QObject *parent)
     : QObject(parent)
+    , m_config(cfg)
     , m_client(new GheClient(this))
     , m_parser(new GheParser(this))
     , m_model(new AntennaModel(this))
 {
-    // TODO: wire GheClient::dataReceived -> GheParser::feed,
-    // GheParser::messageParsed -> update AntennaModel.
+    connect(m_client, &GheClient::connected,
+            this,     &SwitchController::connected);
+
+    connect(m_client, &GheClient::disconnected,
+            this,     &SwitchController::disconnected);
+
+    connect(m_client, &GheClient::errorOccurred,
+            this,     &SwitchController::connectionError);
+
+    connect(m_client, &GheClient::lineReceived,
+            m_parser, &GheParser::feed);
+
+    // TODO: connect GheParser signals to AntennaModel updates once parsing is implemented.
 }
 
 SwitchController::~SwitchController() = default;
 
-void SwitchController::connectToHost(const QString &host, quint16 port)
+bool SwitchController::isConnected() const
 {
-    Q_UNUSED(host)
-    Q_UNUSED(port)
-    // TODO: delegate to m_client->connectToHost(host, port).
+    return m_client->isConnected();
 }
 
-void SwitchController::disconnectFromHost()
+void SwitchController::connectToServer()
 {
-    // TODO: delegate to m_client->disconnectFromHost().
+    m_client->connectToHost(m_config.host, m_config.port);
+}
+
+void SwitchController::disconnectFromServer()
+{
+    m_client->disconnectFromHost();
 }
 
 void SwitchController::selectPort(int portIndex)
 {
     Q_UNUSED(portIndex)
-    // TODO: build GHE select-port command and send via m_client.
+    // TODO: build SET_SWITCH.<radio>.<antenna> command and send via m_client.
 }
