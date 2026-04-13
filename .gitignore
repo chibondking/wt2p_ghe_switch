@@ -1,41 +1,87 @@
-# Prerequisites
-*.d
+# ── CMake ─────────────────────────────────────────────────────────────────────
+build/
+build-*/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps/
 
-# Compiled Object files
-*.slo
-*.lo
+# ── Qt / MOC generated ────────────────────────────────────────────────────────
+moc_*.cpp
+moc_*.h
+ui_*.h
+qrc_*.cpp
+*.qmlc
+*.jsc
+*_autogen/
+
+# ── Compiled object files ─────────────────────────────────────────────────────
 *.o
 *.obj
-
-# Precompiled Headers
+*.slo
+*.lo
 *.gch
 *.pch
+*.d
 
-# Linker files
+# ── Linker / debug artifacts ──────────────────────────────────────────────────
 *.ilk
-
-# Debugger Files
 *.pdb
+*.dwo
+*.map
 
-# Compiled Dynamic libraries
+# ── Static / shared libraries ─────────────────────────────────────────────────
+*.a
+*.la
+*.lai
+*.lib
 *.so
+*.so.*
 *.dylib
 *.dll
 
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
+# ── Executables ───────────────────────────────────────────────────────────────
 *.exe
 *.out
 *.app
 
-# debug information files
-*.dwo
+# ── Linux packaging output ────────────────────────────────────────────────────
+*.AppImage
+AppDir/
+
+# ── Windows packaging output ──────────────────────────────────────────────────
+deploy/
+*.iss.bak
+Output/
+
+# ── IDE: Qt Creator ───────────────────────────────────────────────────────────
+*.pro.user
+*.pro.user.*
+*.qbs.user
+*.qbs.user.*
+CMakeLists.txt.user
+
+# ── IDE: Visual Studio ────────────────────────────────────────────────────────
+.vs/
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
+*.suo
+*.aps
+
+# ── IDE: CLion ────────────────────────────────────────────────────────────────
+.idea/
+cmake-build-*/
+
+# ── IDE: VS Code ──────────────────────────────────────────────────────────────
+.vscode/
+
+# ── OS noise ──────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
+*~
