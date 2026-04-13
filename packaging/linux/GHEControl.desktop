@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=GHEControl
+Comment=Green Heron Engineering Antenna Switch Controller
+Exec=GHEControl
+Icon=GHEControl
+Type=Application
+Categories=HamRadio;Network;
