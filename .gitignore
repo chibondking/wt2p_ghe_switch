@@ -78,7 +78,10 @@ CMakeLists.txt.user
 cmake-build-*/
 
 # ── IDE: VS Code ──────────────────────────────────────────────────────────────
-.vscode/
+# Track launch.json and tasks.json; ignore generated/personal state files.
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
 
 # ── OS noise ──────────────────────────────────────────────────────────────────
 .DS_Store
